@@ -35,11 +35,23 @@ public class MyGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Operations op = new Operations();
+                if (backupEmail.getText().equals("")) {
+                    backupEmail.setText(op.randomBackupMail());
+                }
+                if (backupAddress.getText().equals("")) {
+                    backupAddress.setText(op.randomBackupAddress());
+                }
                 op.setBackupEmail(backupEmail.getText());
                 op.setBackupAddress(backupAddress.getText());
                 op.start();
             }
         });
+
+
+
+        JButton tibia = new JButton("Tibia");
+        tibia.setBounds(320, 300, 80, 30);
+        add(tibia);
 
     }
 

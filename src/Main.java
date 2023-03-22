@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,9 +37,9 @@ class Operations{
         user.printUser();
         Control control = new Control(urlO2, true);
         control.setAutoDelay(delay);
-        control.sleep(2000);
-            control.setAutoDelay(20);
-            control.setDelayBetweenPressRelease(20);
+        control.sleep(5000);
+//            control.setAutoDelay(20);
+//            control.setDelayBetweenPressRelease(20);
         //step 1/4
         control.enterKey(KeyNames.Tab, 3);
         control.enterString(user.getfName());
@@ -86,6 +87,8 @@ class Operations{
         control.enterKey(KeyNames.Space, 1);
 
         control.enterKey(KeyNames.Tab, 20);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
 
     }
 
@@ -98,5 +101,24 @@ class Operations{
     public void setBackupAddress(String backupAddress) {
         this.backupAddress = backupAddress;
     }
+
+
+    public String randomBackupMail() {
+        String[] usernames = {"kduncan783", "rharper419", "jlopez352", "amcdonald885", "esmith797",
+                "nphillips436", "jgonzalez152", "lramirez719", "jreed468", "kgomez367"};
+
+        Random rand = new Random();
+        String email = usernames[rand.nextInt(usernames.length)];
+        return email;
+    }
+
+    public String randomBackupAddress() {
+        String[] userAddress = {"o2.pl", "onet.pl", "interia.pl", "gmail.com", "wp.pl", "opoczta.pl"};
+
+        Random rand = new Random();
+        String address = userAddress[rand.nextInt(userAddress.length)];
+        return address;
+    }
+
 
 }
