@@ -132,7 +132,12 @@ public class Control {
         }
     }
 
-
+    public void copyText() {
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_C);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_C);
+    }
 
 
 }

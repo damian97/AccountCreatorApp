@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.Random;
 
 public class Main {
@@ -26,9 +29,10 @@ class Operations{
 
 
     String urlO2 = "https://poczta.o2.pl/rejestracja";
-    String urlTibia = "https://www.tibia.com/account/?subtopic=createaccount";
+    String urlTibia = "https://www.tibia.com/mmorpg/free-multiplayer-online-role-playing-game.php";
 
     String backupEmail, backupAddress;
+    String charName;
     int delay = 50;
 
     public void start() {
@@ -38,8 +42,7 @@ class Operations{
         Control control = new Control(urlO2, true);
         control.setAutoDelay(delay);
         control.sleep(5000);
-//            control.setAutoDelay(20);
-//            control.setDelayBetweenPressRelease(20);
+
         //step 1/4
         control.enterKey(KeyNames.Tab, 3);
         control.enterString(user.getfName());
@@ -90,8 +93,58 @@ class Operations{
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(2000);
 
+
+
+
+        // Tibia
+
+        control = new Control(urlTibia, true);
+        control.setAutoDelay(delay);
+        control.sleep(2000);
+
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getNickName());
+        control.enterKey(KeyNames.At, 1);
+        control.enterString("o2.pl");
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getPass());
+        control.enterKey(KeyNames.Tab, 1);
+        control.copyText();
+        setCharName(copyClipboar());
+        control.enterKey(KeyNames.Tab, 12);
+        control.enterKey(KeyNames.Enter,1);
+
+
     }
 
+
+    public void startTibia() {
+
+
+        User user = new User();
+        user.printUser();
+        Control control = new Control(urlTibia, true);
+        control.setAutoDelay(delay);
+        control.sleep(5000);
+
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getNickName());
+        control.enterKey(KeyNames.At, 1);
+        control.enterString("o2.pl");
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getPass());
+        control.enterKey(KeyNames.Tab, 1);
+        control.copyText();
+        setCharName(copyClipboar());
+        control.enterKey(KeyNames.Tab, 12);
+        control.enterKey(KeyNames.Enter,1);
+
+
+
+
+
+
+    }
 
 
     public void setBackupEmail(String backupEmail) {
@@ -102,9 +155,19 @@ class Operations{
         this.backupAddress = backupAddress;
     }
 
+    public void setCharName(String charName) {
+        this.charName = charName;
+    }
 
+    public String getCharName() {
+        return charName;
+    }
+
+
+            // do poprawy, pierwszy email losuj albo pobieraj z pola
+            // nastepny email zapisz jako nowo utworzony i wykorzystaj itd.
     public String randomBackupMail() {
-        String[] usernames = {"kduncan783", "rharper419", "jlopez352", "amcdonald885", "esmith797",
+        String[] usernames = {"darodjak", "rharper419", "jlopez352", "amcdonald885", "esmith797",
                 "nphillips436", "jgonzalez152", "lramirez719", "jreed468", "kgomez367"};
 
         Random rand = new Random();
@@ -113,12 +176,26 @@ class Operations{
     }
 
     public String randomBackupAddress() {
-        String[] userAddress = {"o2.pl", "onet.pl", "interia.pl", "gmail.com", "wp.pl", "opoczta.pl"};
+        String[] userAddress = {"o2.pl", "onet.pl", "interia.pl", "wp.pl", "opoczta.pl"};
 
         Random rand = new Random();
         String address = userAddress[rand.nextInt(userAddress.length)];
         return address;
     }
 
+
+    public String copyClipboar() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        String result = null;
+        try {
+            result = (String) clipboard.getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
 }

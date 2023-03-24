@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MyGUI extends JPanel {
 
@@ -52,6 +53,17 @@ public class MyGUI extends JPanel {
         JButton tibia = new JButton("Tibia");
         tibia.setBounds(320, 300, 80, 30);
         add(tibia);
+
+        tibia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Operations tibia = new Operations();
+                tibia.startTibia();
+
+            }
+        });
+
 
     }
 
