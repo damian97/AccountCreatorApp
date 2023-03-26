@@ -140,4 +140,14 @@ public class Control {
     }
 
 
+    public void copyAll() {
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_A);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_A);
+        robot.delay(500);
+        copyText();
+    }
+
+
 }

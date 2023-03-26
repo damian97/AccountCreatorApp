@@ -29,6 +29,7 @@ class Operations{
 
 
     String urlO2 = "https://poczta.o2.pl/rejestracja";
+    String urlO2Login = "https://poczta.o2.pl/login/login.html";
     String urlTibia = "https://www.tibia.com/mmorpg/free-multiplayer-online-role-playing-game.php";
 
     String backupEmail, backupAddress;
@@ -145,6 +146,33 @@ class Operations{
 
 
     }
+
+
+
+    public void startLogin() {
+
+
+        Control control = new Control(urlO2Login, true);
+        control.setAutoDelay(delay);
+        control.sleep(2000);
+        control.enterKey(KeyNames.Tab, 3);
+        control.enterString("grzegorz.wojcik399");
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString("Wojcik55CA7i");
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(3000);   // dodac metode na znajdowanie wiadomosci
+
+        control.copyAll();
+
+        //wyluskac link
+
+
+
+
+
+    }
+
 
 
     public void setBackupEmail(String backupEmail) {

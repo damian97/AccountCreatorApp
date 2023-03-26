@@ -64,6 +64,20 @@ public class MyGUI extends JPanel {
             }
         });
 
+        JButton login = new JButton("Login");
+        login.setBounds(350, 350, 80, 30);
+        add(login);
+
+
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Operations login = new Operations();
+                login.startLogin();
+
+            }
+        });
 
     }
 
