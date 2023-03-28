@@ -29,7 +29,7 @@ public class MyGUI extends JPanel {
 
 
         JButton start = new JButton("Start");
-        start.setBounds(200, 300, 100, 50);
+        start.setBounds(50, 250, 150, 100);
         add(start);
 
         start.addActionListener(new AbstractAction() {
@@ -79,7 +79,67 @@ public class MyGUI extends JPanel {
             }
         });
 
+
+        JButton lokalizuj = new JButton("Lokalizuj");
+        lokalizuj.setBounds(320, 350, 150, 30);
+        add(lokalizuj);
+
+        lokalizuj.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+
+
+            }
+        });
+
+        JButton potwierdz = new JButton("test");
+        potwierdz.setBounds(150, 150, 80, 30);
+        add(potwierdz);
+
+        potwierdz.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                Operations test = new Operations();
+                test.searchMessage();
+
+//                Control con = new Control("", false);
+//                Color niebieski = new Color(0, 141, 255);
+//                Color szary = new Color(229, 229, 229);
+//
+//                con.printScreen();
+//                con.searchMessage(niebieski);
+//                con.enterKey(KeyNames.Tab, 3);
+//                con.sleep(1000);
+//                con.searchMessage(niebieski);
+//                con.sleep(1000);
+//                con.searchMessage(szary);
+
+            }
+        });
+
+
+        JButton save = new JButton("Save data to file");
+        save.setBounds(250, 200, 150, 30);
+        add(save);
+
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                System.out.println("Zapisałem dane do pliku");
+                Operations save = new Operations();
+                save.saveData();
+
+
+            }
+        });
+
     }
+
+
+
 
 
 

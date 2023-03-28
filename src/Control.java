@@ -1,5 +1,13 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -139,6 +147,12 @@ public class Control {
         robot.keyRelease(KeyEvent.VK_C);
     }
 
+    public void pasteText() {
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_V);
+    }
 
     public void copyAll() {
         robot.keyPress(KeyEvent.VK_CONTROL);
@@ -149,5 +163,221 @@ public class Control {
         copyText();
     }
 
+    public void newPage() {
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_T);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_T);
+        robot.delay(500);
+    }
+
+
+    public void mouseMovie(int x, int y) {
+        robot.mouseMove(x, y);
+    }
+
+    public void mousePress(MouseButton mouseButton) {
+
+        switch (mouseButton) {
+            case Left:
+                robot.mousePress(MouseEvent.BUTTON1_DOWN_MASK);
+                robot.delay(delayBetweenPressRelease);
+                robot.mouseRelease(MouseEvent.BUTTON1_DOWN_MASK);
+                break;
+            case Right:
+                robot.mousePress(MouseEvent.BUTTON3_DOWN_MASK);
+                robot.delay(delayBetweenPressRelease);
+                robot.mouseRelease(MouseEvent.BUTTON3_DOWN_MASK);
+                break;
+            case Scroll:
+                robot.mousePress(MouseEvent.BUTTON2_DOWN_MASK);
+                robot.delay(delayBetweenPressRelease);
+                robot.mouseRelease(MouseEvent.BUTTON2_DOWN_MASK);
+                break;
+        }
+
+
+    }
+
+    public void printScreen() {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        Rectangle rectangle = new Rectangle(dimension);
+
+        BufferedImage screen = robot.createScreenCapture(rectangle);
+        try {
+            ImageIO.write(screen, "png", new File("screenshot.png"));
+        } catch (IOException e) {
+            System.err.println("Błąd zapisu obrazu");
+            e.printStackTrace();
+        }
+    }
+
+
+    public void searchMessage(int colorNumber, int colorNumber2) {
+
+        BufferedImage screen;
+        try {
+            screen = ImageIO.read(new File("screenshot.png"));
+        } catch (IOException e) {
+            System.err.println("File doesn't exist");
+            throw new RuntimeException(e);
+        }
+
+        int width = screen.getWidth();
+        int height = screen.getHeight();
+
+        firstLoop:
+        for (int y = 0; y < height-1; y++) {
+            for (int x = 0; x < width-1; x++) {
+
+                int tmpColor = screen.getRGB(x, y);
+
+                if (colorNumber == tmpColor) {
+                    while (y < height-1) {
+                        y++;
+                        tmpColor = screen.getRGB(x, y);
+                        if (colorNumber2 == tmpColor) {
+                            mouseMovie(x, y + 25);
+                            sleep(500);
+                            mousePress(MouseButton.Left);
+                            break firstLoop;
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+
+
+    public String getActivationLinkFromContent() {
+        String activationLink = "https://www.tibia.com/account/";
+        String contentMessage = null;
+        boolean addChar = false;
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        try {
+            contentMessage = (String) clipboard.getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int lenght = contentMessage.length();
+        char[] urlCharArray = activationLink.toCharArray();
+
+        for (int i = 0, j = 0; i < lenght; i++) {
+            char tmpChar = contentMessage.charAt(i);
+            if (tmpChar == urlCharArray[j] && !addChar) {
+                if (j >= urlCharArray.length-1) {
+                    addChar = true;
+                    tmpChar = contentMessage.charAt(++i);
+                } else {
+                    j++;
+                }
+            } else {
+                j = 0;
+            }
+
+            if (addChar) {
+                activationLink = activationLink + tmpChar;
+                if (tmpChar == '\n') {
+                    break;
+                }
+            }
+
+        }
+
+
+
+        return activationLink;
+    }
+
+
+    public String getRKeyFromContent() {
+        String rKey = " ";
+
+        String contentMessage = null;
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        try {
+            contentMessage = (String) clipboard.getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int rKeyStartIndex = contentMessage.indexOf('-');
+        rKey = contentMessage.substring(rKeyStartIndex-5, rKeyStartIndex+18);
+
+        return rKey;
+    }
+
+    public void enterRKey(String rKey) {
+
+        for (int i = 0; i < rKey.length(); i++) {
+            if (rKey.charAt(i) == '-') {
+                enterKey(KeyNames.Tab,1);
+            } else {
+                enterString(String.valueOf(rKey.charAt(i)));
+            }
+        }
+
+    }
+
+
+    public void copyToClipboard(String string) {
+
+        StringSelection activationLink = new StringSelection(string);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(activationLink, null);
+
+    }
+
+
+
+//    public void searchMessage(Color color) {
+//        int x = 0;
+//        int y = 0;
+//
+//        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+//        Rectangle rectangle = new Rectangle(dimension);
+//
+//        BufferedImage screen = robot.createScreenCapture(rectangle);
+//        try {
+//            ImageIO.write(screen, "jpg", new File("screenshot.jpg"));
+//        } catch (IOException e) {
+//            System.err.println("Błąd zapisu obrazu");
+//            e.printStackTrace();
+//        }
+//
+//        int colorSzukany = -16740865;
+//        int colorSzary = -1710619;
+//        robot.delay(1500);
+//        while (y < screen.getHeight()-1) {
+//
+//            x++;
+//
+//            if (x >= screen.getWidth()-1) {
+//                x = 0;
+//                y++;
+//            }
+//            int pixel = screen.getRGB(x, y);
+//
+//            if (pixel == colorSzukany) {
+//                robot.mouseMove(x, y);
+//                break;
+//
+//            }
+//
+//        }
+//
+//
+//    }
 
 }

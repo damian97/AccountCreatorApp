@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 
 public class Main {
@@ -31,10 +33,16 @@ class Operations{
     String urlO2 = "https://poczta.o2.pl/rejestracja";
     String urlO2Login = "https://poczta.o2.pl/login/login.html";
     String urlTibia = "https://www.tibia.com/mmorpg/free-multiplayer-online-role-playing-game.php";
+    String activationLink;
+
+    String rKey;
 
     String backupEmail, backupAddress;
     String charName;
     int delay = 50;
+
+    int blueColorNumber = -16740865;
+    int greyColorNumber = -1710619;
 
     public void start() {
 
@@ -116,6 +124,8 @@ class Operations{
         control.enterKey(KeyNames.Enter,1);
 
 
+
+
     }
 
 
@@ -168,12 +178,88 @@ class Operations{
         //wyluskac link
 
 
+    }
 
+
+    public void searchMessage() {
+
+        Control control = new Control("", false);
+//        control.sleep(5000);
+//        control.enterKey(KeyNames.Tab, 3);
+//        control.sleep(1000);
+//        control.enterString("tibia");
+//        control.sleep(1000);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
+//        control.printScreen();
+//        control.searchMessage(blueColorNumber, greyColorNumber);
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.sleep(1000);
+//        setActivationLink(control.getActivationLinkFromContent());
+//
+//        control.sleep(1000);
+//        control.newPage();
+//        control.copyToClipboard(getActivationLink());
+//        control.pasteText();
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.sleep(500);
+//        setrKey(control.getRKeyFromContent());
+//        System.out.println(getrKey());
+//        control.enterKey(KeyNames.Tab, 11);
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
+//        control.enterKey(KeyNames.Tab, 11);
+        control.sleep(500);
+        control.enterRKey(getrKey());
+        control.sleep(500);
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(1000);
 
 
     }
 
 
+
+
+    public void saveData() {
+
+        User user = new User();
+        System.out.println(user);
+        PrintWriter zapis = null;
+        try {
+            zapis = new PrintWriter("Login_Data.txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        zapis.println(user.getNickName() + "@o2.pl");
+        zapis.println(user.getPass());
+        zapis.close();
+
+    }
+
+
+
+    public void setrKey(String rKey) {
+        this.rKey = rKey;
+    }
+
+    public String getrKey() {
+        return rKey;
+    }
+
+    public String getActivationLink() {
+        return activationLink;
+    }
+
+    public void setActivationLink(String activationLink) {
+        this.activationLink = activationLink;
+    }
 
     public void setBackupEmail(String backupEmail) {
         this.backupEmail = backupEmail;

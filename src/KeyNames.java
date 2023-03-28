@@ -6,3 +6,11 @@ public enum KeyNames {
     Esc,
     At
 }
+
+enum MouseButton {
+
+    Left,
+    Right,
+    Scroll
+
+}
