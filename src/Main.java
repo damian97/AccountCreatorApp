@@ -42,7 +42,9 @@ class Operations{
     int delay = 50;
 
     int blueColorNumber = -16740865;
+    int linkActivationNumber = -16746753;
     int greyColorNumber = -1710619;
+
 
     public void start() {
 
@@ -50,103 +52,103 @@ class Operations{
         user.printUser();
         Control control = new Control(urlO2, true);
         control.setAutoDelay(delay);
-//        control.sleep(5000);
-//
-//        //step 1/4
-//        control.enterKey(KeyNames.Tab, 3);
-//        control.enterString(user.getfName());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getsName());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getNickName());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterOptionPane(user.getGender());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getDay());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterOptionPane(user.getMonth());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getYear());
-//        control.sleep(2000);
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.sleep(1000);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(2000);
-//
-//        //step 2/4
-//        for (int i = 0; i < 2; i++) {
-//            control.enterKey(KeyNames.Tab, 1);
-//            control.enterString(user.getPass());
-//            control.sleep(500);
-//        }
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(2000);
-//
-//        //step 3/4
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(backupEmail);
-//        control.enterKey(KeyNames.At, 1);
-//        control.enterString(backupAddress);
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(2000);
-//
-//        //step 4/4
-//        control.enterKey(KeyNames.Tab, 2);
-//        control.enterKey(KeyNames.Space, 1);
-//
-//        control.enterKey(KeyNames.Tab, 20);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(2000);
-//
-//
-//
-//
-//        // Tibia
-//
-//        control = new Control(urlTibia, true);
-//        control.setAutoDelay(delay);
-//        control.sleep(2000);
-//
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getNickName());
-//        control.enterKey(KeyNames.At, 1);
-//        control.enterString("o2.pl");
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getPass());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.copyText();
-//        setCharName(copyClipboar());
-//        control.enterKey(KeyNames.Tab, 12);
-//        control.enterKey(KeyNames.Enter,1);
-//
-//
-//
-//        // o2 Login
-//
-//        control = new Control(urlO2Login, true);
-//        control.setAutoDelay(delay);
-//        control.sleep(2000);
-//        control.enterKey(KeyNames.Tab, 2);
-//        control.enterString(user.getNickName());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.enterString(user.getPass());
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(6000);
-//
-//
-//
-//        // o2 get Confrimation Link
-                    // to mozna dodac jesli nie znajdzie bez wyszukiwania
+        control.sleep(5000);
+
+        //step 1/4
+        control.enterKey(KeyNames.Tab, 3);
+        control.enterString(user.getfName());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getsName());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getNickName());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterOptionPane(user.getGender());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getDay());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterOptionPane(user.getMonth());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getYear());
+        control.sleep(2000);
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(1000);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
+
+        //step 2/4
+        for (int i = 0; i < 2; i++) {
+            control.enterKey(KeyNames.Tab, 1);
+            control.enterString(user.getPass());
+            control.sleep(500);
+        }
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
+
+        //step 3/4
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(backupEmail);
+        control.enterKey(KeyNames.At, 1);
+        control.enterString(backupAddress);
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
+
+        //step 4/4
+        control.enterKey(KeyNames.Tab, 2);
+        control.enterKey(KeyNames.Space, 1);
+
+        control.enterKey(KeyNames.Tab, 20);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
+
+
+
+
+        // Tibia
+
+        control = new Control(urlTibia, true);
+        control.setAutoDelay(delay);
+        control.sleep(2000);
+
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getNickName());
+        control.enterKey(KeyNames.At, 1);
+        control.enterString("o2.pl");
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getPass());
+        control.enterKey(KeyNames.Tab, 1);
+        control.copyText();
+        setCharName(copyClipboar());
+        control.enterKey(KeyNames.Tab, 12);
+        control.enterKey(KeyNames.Enter,1);
+
+
+
+        // o2 Login
+
+        control = new Control(urlO2Login, true);
+        control.setAutoDelay(delay);
+        control.sleep(2000);
+        control.enterKey(KeyNames.Tab, 2);
+        control.enterString(user.getNickName());
+        control.enterKey(KeyNames.Tab, 1);
+        control.enterString(user.getPass());
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(6000);
+
+
+
+        // o2 get Confrimation Link
+                     //to mozna dodac jesli nie znajdzie bez wyszukiwania
         control.sleep(3000);
         control.enterKey(KeyNames.Tab, 3);
         control.sleep(3000);
-        control.enterString("tibia");
+        control.enterString("");
         control.sleep(3000);
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(3000);
@@ -156,12 +158,17 @@ class Operations{
             System.out.println("");
             control.sleep(2000);
         }
+
+        //////////////////////////////
+
+
         control.sleep(2000);
         control.copyAll();
         control.sleep(1000);
         setActivationLink(control.getActivationLinkFromContent());
 
         control.sleep(1000);
+        control.refresh();
         control.newPage();
         control.sleep(1500);
         control.copyToClipboard(getActivationLink());
@@ -170,15 +177,31 @@ class Operations{
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(2000);
         control.copyAll();
-
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(new StringSelection(""), null);
+        control.copyToClipboard("String from Clipboard:");
         control.sleep(2000);
         control.copyAll();
-        control.sleep(10000);
-        control.getRKeyFromContent();
+        control.sleep(1000);
+
+
+        ///////////////////////////
+        control.sleep(4000);
+
+        /*
+        control.printScreen();
+        System.out.println("Znajdz link");
+        control.searchLinkActiavtion(linkActivationNumber);
+        */
+
+        control.sleep(4000);
+
+//        String zawartosc = control.clipboardToString();
+//        System.out.println(zawartosc);
+        control.copyAll();
+        control.sleep(1000);
+
+        String klucz = control.getRKeyFromContent();
 //        setrKey(control.getRKeyFromContent());
-//        System.out.println(getrKey());
+        setrKey(klucz);
         control.enterKey(KeyNames.Tab, 11);
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);

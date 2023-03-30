@@ -263,6 +263,37 @@ public class Control {
 
     }
 
+    public boolean searchLinkActiavtion(int colorNumber) {
+
+        BufferedImage screen;
+        try {
+            screen = ImageIO.read(new File("screenshot.png"));
+        } catch (IOException e) {
+            System.err.println("File doesn't exist");
+            throw new RuntimeException(e);
+        }
+
+        int width = screen.getWidth();
+        int height = screen.getHeight();
+        int x = width / 2;
+
+
+
+        for (int y = 0; y < height; y++) {
+            int tmpColor = screen.getRGB(x, y);
+
+            if (tmpColor == colorNumber) {
+                mouseMovie(x, y);
+                sleep(500);
+                mousePress(MouseButton.Left);
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
 
 
     public String getActivationLinkFromContent() {
@@ -310,29 +341,49 @@ public class Control {
     }
 
 
+    public void refresh() {
+        robot.delay(1000);
+
+        robot.keyPress(KeyEvent.VK_F5);
+        robot.keyRelease(KeyEvent.VK_F5);
+
+        robot.delay(1000);
+    }
+
     public String getRKeyFromContent() {
         String rKey = " ";
 
-        String keyContentMessage = null;
+        Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable data = board.getContents(null);
 
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        Transferable contents = clipboard.getContents(null);
-        boolean hasText = (contents != null) && contents.isDataFlavorSupported(DataFlavor.stringFlavor);
-        if (hasText) {
+        if (data != null && data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+            String clipboardContents = null;
             try {
-                keyContentMessage = (String)contents.getTransferData(DataFlavor.stringFlavor);
-            }
-            catch (UnsupportedFlavorException | IOException ex){
-                System.out.println(ex);
-                ex.printStackTrace();
-            }
-        }
+                clipboardContents = (String) data.getTransferData(DataFlavor.stringFlavor);
+//                System.out.println(clipboardContents);
+//                int rKeyStartIndex = clipboardContents.indexOf('-');
+//                System.out.println(rKeyStartIndex);
+//                rKey = keyContentMessage.substring(rKeyStartIndex-5, rKeyStartIndex+18);
 
-        System.out.println(keyContentMessage);
-        System.out.println(keyContentMessage.length());
-        int rKeyStartIndex = keyContentMessage.indexOf('-');
-        System.out.println(rKeyStartIndex);
-        rKey = keyContentMessage.substring(rKeyStartIndex-5, rKeyStartIndex+18);
+                String[] lines = clipboardContents.split("\n");
+
+                for (String line : lines) {
+                    System.out.println(line);
+                    if (line.contains("-")) {
+                        rKey = line;
+                    }
+                }
+
+
+
+            } catch (UnsupportedFlavorException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            System.out.println("Clipboard does not contain a string");
+        }
 
         return rKey;
     }
@@ -357,6 +408,25 @@ public class Control {
         clipboard.setContents(activationLink, null);
 
     }
+
+    public String clipboardToString() {
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = toolkit.getSystemClipboard();
+
+        String result = null;
+        try {
+            result = (String) clipboard.getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("String from Clipboard: " + result);
+        return result;
+    }
+
+
 
 
 
