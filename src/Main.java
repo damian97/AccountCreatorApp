@@ -48,10 +48,19 @@ class Operations{
     int greyColorNumber = -1710619;
 
     Color[] blueButton = {
-            new Color(0, 141, 255),
-            new Color(61, 139, 247)
+            new Color(0, 141, 255), // my PC
+            new Color(61, 139, 247)  // my Laptop
     };
 
+    Color[] emailsSeparator = {
+            new Color(229, 229, 229), // my PC
+            new Color(229, 229, 229), // my Laptop
+    };
+
+    Color[] linkUnderline = {
+            new Color(0, 118, 255), // my PC
+            new Color(50, 116, 246), // my Laptop
+    };
 
     public void start() {
 
@@ -172,22 +181,44 @@ class Operations{
         control.sleep(6000);
         */
 
+        // sprawdzenie czy wyskoczylo okno
+
+        if (!control.isO2OnScreen(blueButton)) {
+            System.out.println("A window appeared");
+            control.reverseTab(1);
+            control.sleep(1000);
+            control.enterKey(KeyNames.Enter, 1);
+            control.sleep(500);
+            control.closePage();
+            control.sleep(1000);
+        }
+
+        if (!control.isO2OnScreen(blueButton)) {
+            System.err.println("Mail not displayed");
+            throw new RuntimeException();
+        }
+
 
         // o2 get Confrimation Link
                      //to mozna dodac jesli nie znajdzie bez wyszukiwania
-        control.sleep(3000);
-        control.enterKey(KeyNames.Tab, 3);
-        control.sleep(3000);
-        control.enterString("");
-        control.sleep(3000);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(3000);
+        control.sleep(1000);
+//        control.enterKey(KeyNames.Tab, 3);
+//        control.sleep(3000);
+//        control.enterString("");
+//        control.sleep(3000);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(3000);
         control.printScreen();
-        if (!control.searchMessage(blueColorNumber, greyColorNumber)) {
-            System.out.println("Nie znalazlem wiadomosci");
-            System.out.println("");
-            control.sleep(2000);
-        }
+        //metoda na znajdowanie maila
+
+        control.openMessage(emailsSeparator, 5);
+
+//        if (!control.searchMessage(blueColorNumber, greyColorNumber)) {
+//            System.out.println("Nie znalazlem wiadomosci");
+//            System.out.println("");
+//            control.sleep(2000);
+//
+//        }
 
         //////////////////////////////
 
@@ -217,7 +248,8 @@ class Operations{
 
         control.printScreen();
         System.out.println("Znajdz link");
-        control.searchLinkActiavtion(linkActivationNumber);
+
+        control.openMessage(linkUnderline, -5);
 
 
         control.sleep(4000);
@@ -308,12 +340,11 @@ class Operations{
     public void searchMessage() {
 
 
-
-
-
         Control control = new Control("", false);
 
-        control.isO2OnScreen(blueButton);
+//        control.isO2OnScreen(blueButton);
+
+        control.openMessage(linkUnderline, -5);
 
 //        control.sleep(5000);
 //        control.enterKey(KeyNames.Tab, 3);

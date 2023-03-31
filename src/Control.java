@@ -194,13 +194,12 @@ public class Control {
         robot.delay(500);
     }
 
-    public void newPageIncognito() {
+    public void closePage() {
         robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_SHIFT);
-        robot.keyPress(KeyEvent.VK_N);
+        robot.keyPress(KeyEvent.VK_W);
+        robot.delay(500);
         robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyRelease(KeyEvent.VK_SHIFT);
-        robot.keyRelease(KeyEvent.VK_N);
+        robot.keyRelease(KeyEvent.VK_W);
         robot.delay(500);
     }
 
@@ -243,6 +242,52 @@ public class Control {
             System.err.println("Błąd zapisu obrazu");
             e.printStackTrace();
         }
+    }
+
+
+
+    public void openMessage(Color[] colors, int correct) {
+        if (isMessage(colors, correct)) {
+            mousePress(MouseButton.Left);
+            robot.delay(500);
+        } else {
+            System.out.println("Message not found!");
+            throw new RuntimeException();
+        }
+
+    }
+
+    public boolean isMessage(Color[] colors, int correct) {
+
+        printScreen();
+
+        try {
+            BufferedImage screen = ImageIO.read(new File("screenshot.png"));
+            int width = screen.getWidth() / 2;
+            int height = screen.getHeight();
+
+            for (int y = 0; y < height-1; y++) {
+
+                int tmpColor = screen.getRGB(width, y);
+                for (int z = 0; z < colors.length; z++) {
+                    int pixelColor = colors[z].getRGB();
+                    if (tmpColor == pixelColor) {
+                        mouseMovie(width, y+correct);
+                        return true;
+                    }
+
+
+                }
+
+            }
+
+        } catch (IOException e) {
+            System.err.println("File doesn't exist");
+            throw new RuntimeException(e);
+        }
+
+
+        return false;
     }
 
 
@@ -299,33 +344,35 @@ public class Control {
 
     }
 
-    public boolean searchLinkActiavtion(int colorNumber) {
+    public boolean searchLinkActiavtion(Color[] colors) {
 
-        BufferedImage screen;
+        printScreen();
+
         try {
-            screen = ImageIO.read(new File("screenshot.png"));
+            BufferedImage screen = ImageIO.read(new File("screenshot.png"));
+            int width = screen.getWidth() / 2;
+            int height = screen.getHeight();
+
+            for (int y = 0; y < height-1; y++) {
+
+                int tmpColor = screen.getRGB(width, y);
+                for (int z = 0; z < colors.length; z++) {
+                    int pixelColor = colors[z].getRGB();
+                    if (tmpColor == pixelColor) {
+                        mouseMovie(width, y-2);
+                        return true;
+                    }
+
+
+                }
+
+            }
+
         } catch (IOException e) {
             System.err.println("File doesn't exist");
             throw new RuntimeException(e);
         }
 
-        int width = screen.getWidth();
-        int height = screen.getHeight();
-        int x = width / 2;
-
-
-
-        for (int y = 0; y < height; y++) {
-            int tmpColor = screen.getRGB(x, y);
-
-            if (tmpColor == colorNumber) {
-                mouseMovie(x, y);
-                sleep(500);
-                mousePress(MouseButton.Left);
-                return true;
-            }
-
-        }
 
         return false;
     }
@@ -348,10 +395,6 @@ public class Control {
                     for (int z = 0; z < colors.length; z++) {
                         int pixelColor = colors[z].getRGB();
                         if (tmpColor == pixelColor) {
-                            //
-                            robot.mouseMove(x, y);
-                            //
-                            System.out.println("Jest O2");
                             return true;
                         }
                     }
