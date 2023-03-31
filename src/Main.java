@@ -53,7 +53,7 @@ class Operations{
         Control control = new Control(urlO2, true);
         control.setAutoDelay(delay);
         control.sleep(5000);
-
+/*
         //step 1/4
         control.enterKey(KeyNames.Tab, 3);
         control.enterString(user.getfName());
@@ -124,14 +124,43 @@ class Operations{
         setCharName(copyClipboar());
         control.enterKey(KeyNames.Tab, 12);
         control.enterKey(KeyNames.Enter,1);
+        control.sleep(1000);
+*/
+        // o2 Login incognito
 
+        control.getUrlIncognito(urlO2Login);
+        control.sleep(5000);
+
+//        control = new Control(urlO2Login, true);
+//        control.newPageIncognito();
+//        control.sleep(1000);
+//        control.copyToClipboard(urlO2Login);
+//        control.sleep(1000);
+//        control.pasteText();
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(5000);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
+        control.reverseTab(8);
+//        control.enterKey(KeyNames.Tab, 8);
+        control.sleep(1000);
+//        control.enterString(user.getNickName());
+        control.enterString("dariusz.szewczyk307");
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(1000);
+//        control.enterString(user.getPass());
+        control.enterString("Szewczyk79XU2y");
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(6000);
 
 
         // o2 Login
-
+        /*
         control = new Control(urlO2Login, true);
         control.setAutoDelay(delay);
-        control.sleep(2000);
+        control.sleep(5000);
         control.enterKey(KeyNames.Tab, 2);
         control.enterString(user.getNickName());
         control.enterKey(KeyNames.Tab, 1);
@@ -140,7 +169,7 @@ class Operations{
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(6000);
-
+        */
 
 
         // o2 get Confrimation Link
@@ -162,40 +191,39 @@ class Operations{
         //////////////////////////////
 
 
-        control.sleep(2000);
-        control.copyAll();
-        control.sleep(1000);
-        setActivationLink(control.getActivationLinkFromContent());
-
-        control.sleep(1000);
-        control.refresh();
-        control.newPage();
-        control.sleep(1500);
-        control.copyToClipboard(getActivationLink());
-        control.pasteText();
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(2000);
-        control.copyAll();
-        control.copyToClipboard("String from Clipboard:");
-        control.sleep(2000);
-        control.copyAll();
-        control.sleep(1000);
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.sleep(1000);
+//        setActivationLink(control.getActivationLinkFromContent());
+//
+//        control.newPage();
+//        control.sleep(1500);
+//        control.copyToClipboard(getActivationLink());
+//        control.pasteText();
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.copyToClipboard("String from Clipboard:");
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.sleep(1000);
 
 
         ///////////////////////////
         control.sleep(4000);
 
-        /*
+
         control.printScreen();
         System.out.println("Znajdz link");
         control.searchLinkActiavtion(linkActivationNumber);
-        */
+
 
         control.sleep(4000);
 
 //        String zawartosc = control.clipboardToString();
 //        System.out.println(zawartosc);
+
         control.copyAll();
         control.sleep(1000);
 

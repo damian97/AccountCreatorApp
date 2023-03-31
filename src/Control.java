@@ -80,6 +80,20 @@ public class Control {
     }
 
 
+    public void getUrlIncognito(String urlAddress) {
+
+        String browserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"; //ścieżka do przeglądarki, zmień ją na odpowiednią dla swojego systemu
+
+        ProcessBuilder processBuilder = new ProcessBuilder(browserPath, "--incognito", urlAddress);
+        try {
+            processBuilder.start();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public void enterKey(KeyNames keyNames, int numberClicks) {
 
         for (int i = 0; i < numberClicks; i++) {
@@ -110,6 +124,20 @@ public class Control {
 
         sleep(500);
     }
+
+
+    public void reverseTab(int numberClicks) {
+
+        for (int i = 0; i < numberClicks; i++) {
+            robot.keyPress(KeyEvent.VK_SHIFT);
+            robot.keyPress(KeyEvent.VK_TAB);
+            robot.delay(delayBetweenPressRelease);
+            robot.keyRelease(KeyEvent.VK_SHIFT);
+            robot.keyRelease(KeyEvent.VK_TAB);
+        }
+
+    }
+
 
     public void enterString(String string) {
 
@@ -165,6 +193,16 @@ public class Control {
         robot.keyPress(KeyEvent.VK_T);
         robot.keyRelease(KeyEvent.VK_CONTROL);
         robot.keyRelease(KeyEvent.VK_T);
+        robot.delay(500);
+    }
+
+    public void newPageIncognito() {
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_SHIFT);
+        robot.keyPress(KeyEvent.VK_N);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_SHIFT);
+        robot.keyRelease(KeyEvent.VK_N);
         robot.delay(500);
     }
 
