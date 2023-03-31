@@ -30,6 +30,8 @@ public class Main {
 class Operations{
 
 
+    String browserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"; //ścieżka do przeglądarki, zmień ją na odpowiednią dla swojego systemu
+
     String urlO2 = "https://poczta.o2.pl/rejestracja";
     String urlO2Login = "https://poczta.o2.pl/login/login.html";
     String urlTibia = "https://www.tibia.com/mmorpg/free-multiplayer-online-role-playing-game.php";
@@ -53,7 +55,7 @@ class Operations{
         Control control = new Control(urlO2, true);
         control.setAutoDelay(delay);
         control.sleep(5000);
-/*
+
         //step 1/4
         control.enterKey(KeyNames.Tab, 3);
         control.enterString(user.getfName());
@@ -125,31 +127,25 @@ class Operations{
         control.enterKey(KeyNames.Tab, 12);
         control.enterKey(KeyNames.Enter,1);
         control.sleep(1000);
-*/
+
         // o2 Login incognito
 
-        control.getUrlIncognito(urlO2Login);
-        control.sleep(5000);
+//        control.getUrlIncognito(urlO2Login, browserPath);
 
-//        control = new Control(urlO2Login, true);
-//        control.newPageIncognito();
-//        control.sleep(1000);
-//        control.copyToClipboard(urlO2Login);
-//        control.sleep(1000);
-//        control.pasteText();
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(5000);
+
+        control = new Control(urlO2Login, true);
+        control.sleep(4000);
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(2000);
         control.reverseTab(8);
 //        control.enterKey(KeyNames.Tab, 8);
         control.sleep(1000);
-//        control.enterString(user.getNickName());
-        control.enterString("dariusz.szewczyk307");
+        control.enterString(user.getNickName());
+//        control.enterString("dariusz.szewczyk307");
         control.enterKey(KeyNames.Tab, 1);
         control.sleep(1000);
-//        control.enterString(user.getPass());
-        control.enterString("Szewczyk79XU2y");
+        control.enterString(user.getPass());
+//        control.enterString("Szewczyk79XU2y");
         control.enterKey(KeyNames.Tab, 1);
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);

@@ -80,11 +80,9 @@ public class Control {
     }
 
 
-    public void getUrlIncognito(String urlAddress) {
+    public void getUrlIncognito(String urlAddress, String pathToBrowser) {
 
-        String browserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"; //ścieżka do przeglądarki, zmień ją na odpowiednią dla swojego systemu
-
-        ProcessBuilder processBuilder = new ProcessBuilder(browserPath, "--incognito", urlAddress);
+        ProcessBuilder processBuilder = new ProcessBuilder(pathToBrowser, "--incognito", urlAddress);
         try {
             processBuilder.start();
 
