@@ -104,6 +104,7 @@ public class MyGUI extends JPanel {
                 Operations test = new Operations();
                 test.searchMessage();
 
+
 //                Control con = new Control("", false);
 //                Color niebieski = new Color(0, 141, 255);
 //                Color szary = new Color(229, 229, 229);

@@ -47,6 +47,11 @@ class Operations{
     int linkActivationNumber = -16746753;
     int greyColorNumber = -1710619;
 
+    Color[] blueButton = {
+            new Color(0, 141, 255),
+            new Color(61, 139, 247)
+    };
+
 
     public void start() {
 
@@ -302,43 +307,50 @@ class Operations{
 
     public void searchMessage() {
 
-        Control control = new Control("", false);
-        control.sleep(5000);
-        control.enterKey(KeyNames.Tab, 3);
-        control.sleep(1000);
-        control.enterString("tibia");
-        control.sleep(1000);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(1000);
-        control.printScreen();
-        control.searchMessage(blueColorNumber, greyColorNumber);
-        control.sleep(2000);
-        control.copyAll();
-        control.sleep(1000);
-        setActivationLink(control.getActivationLinkFromContent());
 
-        control.sleep(1000);
-        control.newPage();
-        control.copyToClipboard(getActivationLink());
-        control.pasteText();
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(2000);
-        control.copyAll();
-        control.sleep(500);
-        setrKey(control.getRKeyFromContent());
-        System.out.println(getrKey());
-        control.enterKey(KeyNames.Tab, 11);
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(1000);
-        control.enterKey(KeyNames.Tab, 11);
-        control.sleep(500);
-        control.enterRKey(getrKey());
-        control.sleep(500);
-        control.enterKey(KeyNames.Tab, 1);
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(1000);
+
+
+
+        Control control = new Control("", false);
+
+        control.isO2OnScreen(blueButton);
+
+//        control.sleep(5000);
+//        control.enterKey(KeyNames.Tab, 3);
+//        control.sleep(1000);
+//        control.enterString("tibia");
+//        control.sleep(1000);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
+//        control.printScreen();
+//        control.searchMessage(blueColorNumber, greyColorNumber);
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.sleep(1000);
+//        setActivationLink(control.getActivationLinkFromContent());
+//
+//        control.sleep(1000);
+//        control.newPage();
+//        control.copyToClipboard(getActivationLink());
+//        control.pasteText();
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(2000);
+//        control.copyAll();
+//        control.sleep(500);
+//        setrKey(control.getRKeyFromContent());
+//        System.out.println(getrKey());
+//        control.enterKey(KeyNames.Tab, 11);
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
+//        control.enterKey(KeyNames.Tab, 11);
+//        control.sleep(500);
+//        control.enterRKey(getrKey());
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Tab, 1);
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
 
 
     }

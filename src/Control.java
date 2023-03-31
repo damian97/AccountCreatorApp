@@ -332,6 +332,45 @@ public class Control {
 
 
 
+    public boolean isO2OnScreen(Color[] colors) {
+
+        printScreen();
+
+        try {
+            BufferedImage screen = ImageIO.read(new File("screenshot.png"));
+            int width = screen.getWidth();
+            int height = screen.getHeight();
+
+            for (int y = 0; y < height-1; y++) {
+                for (int x = 0; x < width-1; x++) {
+
+                    int tmpColor = screen.getRGB(x, y);
+                    for (int z = 0; z < colors.length; z++) {
+                        int pixelColor = colors[z].getRGB();
+                        if (tmpColor == pixelColor) {
+                            //
+                            robot.mouseMove(x, y);
+                            //
+                            System.out.println("Jest O2");
+                            return true;
+                        }
+                    }
+
+
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("File doesn't exist");
+            throw new RuntimeException(e);
+        }
+
+
+        return false;
+    }
+
+
+
     public String getActivationLinkFromContent() {
         String activationLink = "https://www.tibia.com/account/";
         String contentMessage = null;
