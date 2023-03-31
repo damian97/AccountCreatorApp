@@ -54,12 +54,13 @@ class Operations{
 
     Color[] emailsSeparator = {
             new Color(229, 229, 229), // my PC
-            new Color(229, 229, 229), // my Laptop
+            new Color(242, 242, 242) // my Laptop
     };
 
     Color[] linkUnderline = {
-            new Color(0, 118, 255), // my PC
             new Color(50, 116, 246), // my Laptop
+            new Color(153, 186, 251), // laptop screen robot
+            new Color(0, 118, 255) // my PC
     };
 
     public void start() {
@@ -183,15 +184,23 @@ class Operations{
 
         // sprawdzenie czy wyskoczylo okno
 
+        System.out.println("Sprawdzam okno");
+
+
+        // mozliwe ze wyskoczylo okno wiec zamykam i sprawdzam czy jest o2 is focused
+
+        System.out.println("A window appeared?");
+        control.reverseTab(1);
+        control.sleep(1000);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(1000);
+
         if (!control.isO2OnScreen(blueButton)) {
-            System.out.println("A window appeared");
-            control.reverseTab(1);
-            control.sleep(1000);
-            control.enterKey(KeyNames.Enter, 1);
             control.sleep(500);
             control.closePage();
-            control.sleep(1000);
         }
+
+        control.sleep(1000);
 
         if (!control.isO2OnScreen(blueButton)) {
             System.err.println("Mail not displayed");
@@ -344,7 +353,46 @@ class Operations{
 
 //        control.isO2OnScreen(blueButton);
 
-        control.openMessage(linkUnderline, -5);
+        Color[] test = {new Color(153, 186, 251)};
+
+
+
+        control.openMessage(test, -5);
+
+
+
+
+
+//        Color test = new Color(50, 116, 246);
+//
+//        int numer = test.getRGB();
+//
+//        try {
+//            Robot bot = new Robot();
+//
+//
+//            for (int i = 0; i < 1000; i++) {
+//                Color tmp = bot.getPixelColor(700, i);
+//                int col = tmp.getRGB();
+//                bot.mouseMove(700, i);
+//
+//                if (col == numer) {
+//                    System.out.println("Znalazlem");
+//                    bot.mouseMove(700, i);
+//                    break;
+//                }
+//            }
+//
+//
+//
+//
+//        } catch (AWTException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+
+
+
 
 //        control.sleep(5000);
 //        control.enterKey(KeyNames.Tab, 3);
