@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Random;
 
 public class Main {
@@ -68,7 +66,9 @@ class Operations{
         user.printUser();
         Control control = new Control(urlO2, true);
         control.setAutoDelay(delay);
-        control.sleep(5000);
+        control.sleep(8000);
+
+
 
         //step 1/4
         control.enterKey(KeyNames.Tab, 3);
@@ -142,6 +142,8 @@ class Operations{
         control.enterKey(KeyNames.Enter,1);
         control.sleep(1000);
 
+
+
         // o2 Login incognito
 
 //        control.getUrlIncognito(urlO2Login, browserPath);
@@ -155,11 +157,11 @@ class Operations{
 //        control.enterKey(KeyNames.Tab, 8);
         control.sleep(1000);
         control.enterString(user.getNickName());
-//        control.enterString("dariusz.szewczyk307");
+//        control.enterString("iga.pawlowski341");
         control.enterKey(KeyNames.Tab, 1);
         control.sleep(1000);
         control.enterString(user.getPass());
-//        control.enterString("Szewczyk79XU2y");
+//        control.enterString("Pawlowski15MG8k");
         control.enterKey(KeyNames.Tab, 1);
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);
@@ -208,7 +210,7 @@ class Operations{
 //        control.sleep(3000);
 //        control.enterKey(KeyNames.Enter, 1);
 //        control.sleep(3000);
-        control.printScreen();
+//        control.printScreen();
         //metoda na znajdowanie maila
 
         control.openMessage(emailsSeparator, 5);
@@ -223,46 +225,235 @@ class Operations{
         //////////////////////////////
 
 
-//        control.sleep(2000);
-//        control.copyAll();
-//        control.sleep(1000);
-//        setActivationLink(control.getActivationLinkFromContent());
-//
+        control.sleep(2000);
+        control.copyAll();
+        control.sleep(1000);
+        setActivationLink(control.getActivationLinkFromContent());
+
 //        control.newPage();
 //        control.sleep(1500);
 //        control.copyToClipboard(getActivationLink());
+
+
+        Control rKey = new Control(urlO2, true);
+        control.sleep(2000);
+        control.newPage();
+        control.sleep(1500);
+//        control.copyToClipboard(getActivationLink());
+        control.sleep(1500);
+//        control.pasteText();
+        control.enterString(getActivationLink());
+        control.sleep(1500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(3000);
+
+
 //        control.pasteText();
 //        control.sleep(500);
 //        control.enterKey(KeyNames.Enter, 1);
 //        control.sleep(2000);
-//        control.copyAll();
-//        control.copyToClipboard("String from Clipboard:");
-//        control.sleep(2000);
-//        control.copyAll();
-//        control.sleep(1000);
+
 
 
         ///////////////////////////
+//        control.sleep(4000);
+//
+//
+//        control.printScreen();
+//        System.out.println("Znajdz link");
+//
+//        control.openMessage(linkUnderline, -5);
+
+
+        rKey.sleep(4000);
+
+//        String zawartosc = control.clipboardToString();
+//        System.out.println(zawartosc);
+
+        rKey.copyAll();
+        rKey.sleep(1000);
+
+        String klucz = rKey.getRKeyFromContent();
+//        setrKey(control.getRKeyFromContent());
+        System.out.println("dupa");
+        System.out.println(klucz);
+        setrKey(klucz);
+        System.out.println("dupa");
+        control.enterKey(KeyNames.Tab, 11);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(1000);
+        control.enterKey(KeyNames.Tab, 11);
+        control.sleep(500);
+        rKey.enterRKey(getrKey());
+        control.sleep(500);
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(1000);
+
+
+
+        // save data to file
+
+        try {
+            FileWriter fileWriter = new FileWriter("Login_Data.txt", true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.newLine();
+            bufferedWriter.newLine();
+            bufferedWriter.write(getCharName());
+            bufferedWriter.newLine();
+            bufferedWriter.write(user.getNickName() + "@o2.pl");
+            bufferedWriter.write(user.getPass());
+
+            bufferedWriter.close();
+            fileWriter.close();
+        } catch(IOException e) {
+            System.out.println("Wystąpił błąd: " + e.getMessage());
+        }
+
+
+    }
+
+
+    public void startTibia() {
+
+
+        Control control = new Control(urlO2Login, true);
+        control.sleep(4000);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(2000);
+        control.reverseTab(8);
+//        control.enterKey(KeyNames.Tab, 8);
+        control.sleep(1000);
+//        control.enterString(user.getNickName());
+        control.enterString("iga.pawlowski341");
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(1000);
+//        control.enterString(user.getPass());
+        control.enterString("Pawlowski15MG8k");
+        control.enterKey(KeyNames.Tab, 1);
+        control.sleep(500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(6000);
+
+
+        if (!control.isO2OnScreen(blueButton)) {
+            System.out.println("A window appeared");
+            control.reverseTab(1);
+            control.sleep(1000);
+            control.enterKey(KeyNames.Enter, 1);
+            control.sleep(500);
+            control.closePage();
+            control.sleep(1000);
+        }
+
+        if (!control.isO2OnScreen(blueButton)) {
+            System.err.println("Mail not displayed");
+            throw new RuntimeException();
+        }
+
+
+        // o2 get Confrimation Link
+        //to mozna dodac jesli nie znajdzie bez wyszukiwania
+        control.sleep(1000);
+//        control.enterKey(KeyNames.Tab, 3);
+//        control.sleep(3000);
+//        control.enterString("");
+//        control.sleep(3000);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(3000);
+//        control.printScreen();
+        //metoda na znajdowanie maila
+
+        control.openMessage(emailsSeparator, 5);
+
+//        if (!control.searchMessage(blueColorNumber, greyColorNumber)) {
+//            System.out.println("Nie znalazlem wiadomosci");
+//            System.out.println("");
+//            control.sleep(2000);
+//
+//        }
+
+        //////////////////////////////
+
+
+        control.sleep(2000);
+        control.copyAll();
+        control.sleep(1000);
+        setActivationLink(control.getActivationLinkFromContent());
+
+        System.out.println(getActivationLink());
+
+        control.sleep(2000);
+        control.newPage();
+        control.sleep(1500);
+        control.copyToClipboard(getActivationLink());
+        control.sleep(1500);
+        control.pasteText();
+        control.sleep(1500);
+        control.enterKey(KeyNames.Enter, 1);
+        control.sleep(3000);
+
+
         control.sleep(4000);
 
+        control.cleanClipboard();
 
-        control.printScreen();
-        System.out.println("Znajdz link");
+        control.getKeyTest();
 
-        control.openMessage(linkUnderline, -5);
+    }
 
 
+
+    public void startLogin() {
+
+
+        Control control = new Control(urlO2Login, false);
         control.sleep(4000);
 
 //        String zawartosc = control.clipboardToString();
 //        System.out.println(zawartosc);
 
         control.copyAll();
+        control.sleep(2000);
+
+
+        // zapis do pliku
+
+        File file = new File("plik.txt");
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(file);
+            writer.write(control.clipboardToString());
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+
+
+
+
+
+
+        // zapis do pliku
+
+
+
         control.sleep(1000);
 
         String klucz = control.getRKeyFromContent();
 //        setrKey(control.getRKeyFromContent());
+        System.out.println("dupa");
+        System.out.println(klucz);
         setrKey(klucz);
+        System.out.println("dupa");
         control.enterKey(KeyNames.Tab, 11);
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);
@@ -275,63 +466,6 @@ class Operations{
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(1000);
-
-
-
-        // save data to file
-
-        PrintWriter zapis = null;
-        try {
-            zapis = new PrintWriter("Login_Data.txt");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        zapis.println(getCharName());
-        zapis.println();
-        zapis.println(user.getNickName() + "@o2.pl");
-        zapis.println(user.getPass());
-        zapis.close();
-    }
-
-
-    public void startTibia() {
-
-
-        User user = new User();
-        user.printUser();
-        Control control = new Control(urlTibia, true);
-        control.setAutoDelay(delay);
-        control.sleep(5000);
-
-        control.enterKey(KeyNames.Tab, 1);
-        control.enterString(user.getNickName());
-        control.enterKey(KeyNames.At, 1);
-        control.enterString("o2.pl");
-        control.enterKey(KeyNames.Tab, 1);
-        control.enterString(user.getPass());
-        control.enterKey(KeyNames.Tab, 1);
-        control.copyText();
-        setCharName(copyClipboar());
-        control.enterKey(KeyNames.Tab, 12);
-        control.enterKey(KeyNames.Enter,1);
-
-
-
-
-
-
-    }
-
-
-
-    public void startLogin() {
-
-
-        Control control = new Control(urlO2Login, false);
-        control.setAutoDelay(delay);
-        setrKey(control.getRKeyFromContent());
-        System.out.println(getrKey());
 
 
     }

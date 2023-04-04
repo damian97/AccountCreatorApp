@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -136,6 +140,42 @@ public class MyGUI extends JPanel {
 
             }
         });
+
+
+        JButton schowek = new JButton("Schowek");
+        schowek.setBounds(300, 50, 100, 50);
+        add(schowek);
+
+        schowek.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                System.out.println("schowek");
+
+
+//                String textToCopy = "Tekst do skopiowania do schowka";
+//                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+//                clipboard.setContents(new StringSelection(textToCopy), null);
+
+
+
+
+
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                Transferable contents = clipboard.getContents(null);
+                if (contents.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                    try {
+                        String textFromClipboard = (String) contents.getTransferData(DataFlavor.stringFlavor);
+                        System.out.println("Tekst ze schowka: " + textFromClipboard);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+
+            }
+        });
+
 
     }
 

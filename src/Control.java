@@ -146,6 +146,21 @@ public class Control {
                 robot.keyPress(KeyEvent.getExtendedKeyCodeForChar(tmpChar));
                 robot.keyRelease(KeyEvent.VK_SHIFT);
                 robot.keyRelease(KeyEvent.getExtendedKeyCodeForChar(tmpChar));
+            } else if (tmpChar == ':') {
+                robot.keyPress(KeyEvent.VK_SHIFT);
+                robot.keyPress(KeyEvent.VK_SEMICOLON);
+                robot.keyRelease(KeyEvent.VK_SEMICOLON);
+                robot.keyRelease(KeyEvent.VK_SHIFT);
+            } else if (tmpChar == '?') {
+                robot.keyPress(KeyEvent.VK_SHIFT);
+                robot.keyPress(KeyEvent.VK_SLASH);
+                robot.keyRelease(KeyEvent.VK_SLASH);
+                robot.keyRelease(KeyEvent.VK_SHIFT);
+            } else if (tmpChar == '&') {
+                robot.keyPress(KeyEvent.VK_SHIFT);
+                robot.keyPress(KeyEvent.VK_7);
+                robot.keyRelease(KeyEvent.VK_7);
+                robot.keyRelease(KeyEvent.VK_SHIFT);
             } else {
                 robot.keyPress(KeyEvent.getExtendedKeyCodeForChar(tmpChar));
                 robot.keyRelease(KeyEvent.getExtendedKeyCodeForChar(tmpChar));
@@ -478,7 +493,7 @@ public class Control {
             String clipboardContents = null;
             try {
                 clipboardContents = (String) data.getTransferData(DataFlavor.stringFlavor);
-//                System.out.println(clipboardContents);
+
 //                int rKeyStartIndex = clipboardContents.indexOf('-');
 //                System.out.println(rKeyStartIndex);
 //                rKey = keyContentMessage.substring(rKeyStartIndex-5, rKeyStartIndex+18);
@@ -506,6 +521,31 @@ public class Control {
         return rKey;
     }
 
+
+
+
+
+    public void getKeyTest() {
+        System.out.println("Wywolalem metode getKeyTest");
+
+        copyAll();
+
+        robot.delay(2000);
+
+
+        try {
+            String data = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+            System.out.println("Zawartosc schowka: " + data);
+        } catch (UnsupportedFlavorException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+
     public void enterRKey(String rKey) {
 
         for (int i = 0; i < rKey.length(); i++) {
@@ -526,6 +566,13 @@ public class Control {
         clipboard.setContents(activationLink, null);
 
     }
+
+    public void cleanClipboard() {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(new StringSelection(""), null);
+
+    }
+
 
     public String clipboardToString() {
 
