@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Key;
 
 public class Control {
 
@@ -266,9 +267,28 @@ public class Control {
             mousePress(MouseButton.Left);
             robot.delay(500);
         } else {
-            System.out.println("Message not found!");
-            throw new RuntimeException();
+            System.out.println("Message not found! Another test");
+            robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+            robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
+            robot.delay(500);
+
+
+            if (isMessage(colors, correct)) {
+                mousePress(MouseButton.Left);
+                robot.delay(500);
+            } else {
+                System.out.println("Message not found!");
+                robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+                robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
+                robot.delay(500);
+
+                throw new RuntimeException();
+
+            }
+
         }
+
+
 
     }
 
@@ -293,8 +313,12 @@ public class Control {
 
 
                 }
-
+//                robot.mouseMove(width, y);
+//                robot.delay(2);
             }
+
+
+
 
         } catch (IOException e) {
             System.err.println("File doesn't exist");
