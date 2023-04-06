@@ -191,7 +191,7 @@ class Operations{
 
         // mozliwe ze wyskoczylo okno wiec zamykam i sprawdzam czy jest o2 is focused
 
-        System.out.println("A window appeared?");
+        System.out.println("A window appeared?");           // to trzeba jeszcze dopiescic
         control.reverseTab(1);
         control.sleep(1000);
         control.enterKey(KeyNames.Enter, 1);
@@ -314,6 +314,7 @@ class Operations{
             bufferedWriter.write(getCharName());
             bufferedWriter.newLine();
             bufferedWriter.write(user.getNickName() + "@o2.pl");
+            bufferedWriter.newLine();
             bufferedWriter.write(user.getPass());
 
             bufferedWriter.close();
