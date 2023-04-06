@@ -1,7 +1,9 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
@@ -194,7 +196,7 @@ class Operations{
         System.out.println("A window appeared?");           // to trzeba jeszcze dopiescic
         control.reverseTab(1);
         control.sleep(1000);
-        control.enterKey(KeyNames.Enter, 1);
+        control.enterKey(KeyNames.Enter, 2);
         control.sleep(1000);
 
         if (!control.isO2OnScreen(blueButton)) {
@@ -420,62 +422,114 @@ class Operations{
     public void startLogin() {
 
 
-        Control control = new Control(urlO2Login, false);
-        control.sleep(4000);
-
-//        String zawartosc = control.clipboardToString();
-//        System.out.println(zawartosc);
-
-        control.copyAll();
-        control.sleep(2000);
-
-
-        // zapis do pliku
-
-        File file = new File("plik.txt");
-
-        FileWriter writer = null;
         try {
-            writer = new FileWriter(file);
-            writer.write(control.clipboardToString());
-            writer.close();
-        } catch (IOException e) {
+            Robot robot = new Robot();
+
+            robot.delay(500);
+
+            ArrayList<Integer> listaSeparatorow = new ArrayList<>();
+            Color sepColor = new Color(229, 229,229);
+
+
+            int x = 650;
+            for (int i = 500; i < 720; i++) {
+                robot.mouseMove(650, i);
+                Color tmpColor = robot.getPixelColor(x, i);
+                if (tmpColor.equals(sepColor)) {
+                    listaSeparatorow.add(i);
+                }
+
+
+            }
+
+            System.out.println(listaSeparatorow.toString());
+
+            robot.delay(500);
+
+
+            int wiadomosc = 1;
+
+            int center = 0;
+
+            switch (wiadomosc) {
+                case 1 :
+                    center = listaSeparatorow.get(1) + listaSeparatorow.get(0);
+                    break;
+                case 2 :
+                    center = listaSeparatorow.get(1) + listaSeparatorow.get(2);
+                    break;
+                case 3 :
+                    center = listaSeparatorow.get(3) + listaSeparatorow.get(2);
+                    break;
+            }
+
+            center /= 2;
+            robot.mouseMove(x, center);
+
+
+
+
+
+
+        } catch (AWTException e) {
             throw new RuntimeException(e);
         }
 
 
-
-
-
-
-
-
-
-
-        // zapis do pliku
-
-
-
-        control.sleep(1000);
-
-        String klucz = control.getRKeyFromContent();
-//        setrKey(control.getRKeyFromContent());
-        System.out.println("dupa");
-        System.out.println(klucz);
-        setrKey(klucz);
-        System.out.println("dupa");
-        control.enterKey(KeyNames.Tab, 11);
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(1000);
-        control.enterKey(KeyNames.Tab, 11);
-        control.sleep(500);
-        control.enterRKey(getrKey());
-        control.sleep(500);
-        control.enterKey(KeyNames.Tab, 1);
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(1000);
+//
+////        String zawartosc = control.clipboardToString();
+////        System.out.println(zawartosc);
+//
+//        control.copyAll();
+//        control.sleep(2000);
+//
+//
+//        // zapis do pliku
+//
+//        File file = new File("plik.txt");
+//
+//        FileWriter writer = null;
+//        try {
+//            writer = new FileWriter(file);
+//            writer.write(control.clipboardToString());
+//            writer.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//        // zapis do pliku
+//
+//
+//
+//        control.sleep(1000);
+//
+//        String klucz = control.getRKeyFromContent();
+////        setrKey(control.getRKeyFromContent());
+//        System.out.println("dupa");
+//        System.out.println(klucz);
+//        setrKey(klucz);
+//        System.out.println("dupa");
+//        control.enterKey(KeyNames.Tab, 11);
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
+//        control.enterKey(KeyNames.Tab, 11);
+//        control.sleep(500);
+//        control.enterRKey(getrKey());
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Tab, 1);
+//        control.sleep(500);
+//        control.enterKey(KeyNames.Enter, 1);
+//        control.sleep(1000);
 
 
     }
