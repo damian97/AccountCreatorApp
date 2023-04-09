@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
@@ -29,23 +28,17 @@ public class Main {
 
 class Operations{
 
+    final String urlO2 = "https://poczta.o2.pl/rejestracja";
+    final String urlO2Login = "https://poczta.o2.pl/login/login.html";
+    final String urlTibia = "https://www.tibia.com/mmorpg/free-multiplayer-online-role-playing-game.php";
+    private String activationLink;
 
-    String browserPath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"; //ścieżka do przeglądarki, zmień ją na odpowiednią dla swojego systemu
+    private String rKey;
 
-    String urlO2 = "https://poczta.o2.pl/rejestracja";
-    String urlO2Login = "https://poczta.o2.pl/login/login.html";
-    String urlTibia = "https://www.tibia.com/mmorpg/free-multiplayer-online-role-playing-game.php";
-    String activationLink;
-
-    String rKey;
-
-    String backupEmail, backupAddress;
-    String charName;
+    private String backupEmail, backupAddress;
+    private String charName;
     int delay = 50;
 
-    int blueColorNumber = -16740865;
-    int linkActivationNumber = -16746753;
-    int greyColorNumber = -1710619;
 
     Color[] blueButton = {
             new Color(0, 141, 255), // my PC
@@ -54,13 +47,8 @@ class Operations{
 
     Color[] emailsSeparator = {
             new Color(229, 229, 229), // my PC
-            new Color(242, 242, 242) // my Laptop
-    };
-
-    Color[] linkUnderline = {
-            new Color(50, 116, 246), // my Laptop
-            new Color(153, 186, 251), // laptop screen robot
-            new Color(0, 118, 255) // my PC
+            new Color(242, 242, 242), // my Laptop
+            new Color(239, 239, 239) // Sebka Laptop
     };
 
     public void start() {
@@ -149,15 +137,12 @@ class Operations{
 
         // o2 Login incognito
 
-//        control.getUrlIncognito(urlO2Login, browserPath);
-
 
         control = new Control(urlO2Login, true);
         control.sleep(4000);
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(2000);
         control.reverseTab(8);
-//        control.enterKey(KeyNames.Tab, 8);
         control.sleep(1000);
         control.enterString(user.getNickName());
 //        control.enterString("iga.pawlowski341");
@@ -171,25 +156,9 @@ class Operations{
         control.sleep(6000);
 
 
-        // o2 Login
-        /*
-        control = new Control(urlO2Login, true);
-        control.setAutoDelay(delay);
-        control.sleep(5000);
-        control.enterKey(KeyNames.Tab, 2);
-        control.enterString(user.getNickName());
-        control.enterKey(KeyNames.Tab, 1);
-        control.enterString(user.getPass());
-        control.enterKey(KeyNames.Tab, 1);
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(6000);
-        */
-
         // sprawdzenie czy wyskoczylo okno
 
         System.out.println("Sprawdzam okno");
-
 
         // mozliwe ze wyskoczylo okno wiec zamykam i sprawdzam czy jest o2 is focused
 
@@ -215,77 +184,39 @@ class Operations{
         // o2 get Confrimation Link
                      //to mozna dodac jesli nie znajdzie bez wyszukiwania
         control.sleep(1000);
-//        control.enterKey(KeyNames.Tab, 3);
-//        control.sleep(3000);
-//        control.enterString("");
-//        control.sleep(3000);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(3000);
-//        control.printScreen();
+
         //metoda na znajdowanie maila
 
         control.openMessage(emailsSeparator, 5);
 
-//        if (!control.searchMessage(blueColorNumber, greyColorNumber)) {
-//            System.out.println("Nie znalazlem wiadomosci");
-//            System.out.println("");
-//            control.sleep(2000);
-//
-//        }
 
         //////////////////////////////
-
 
         control.sleep(2000);
         control.copyAll();
         control.sleep(1000);
         setActivationLink(control.getActivationLinkFromContent());
 
-//        control.newPage();
-//        control.sleep(1500);
-//        control.copyToClipboard(getActivationLink());
 
-
-        Control rKey = new Control(urlO2, true);
+        Control rKey = new Control(urlO2, true);    // true do zmiany ?? test czy dziala
         control.sleep(2000);
         control.newPage();
         control.sleep(1500);
-//        control.copyToClipboard(getActivationLink());
-        control.sleep(1500);
-//        control.pasteText();
         control.enterString(getActivationLink());
         control.sleep(1500);
         control.enterKey(KeyNames.Enter, 1);
         control.sleep(3000);
 
 
-//        control.pasteText();
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(2000);
-
-
-
-        ///////////////////////////
-//        control.sleep(4000);
-//
-//
-//        control.printScreen();
-//        System.out.println("Znajdz link");
-//
-//        control.openMessage(linkUnderline, -5);
-
 
         rKey.sleep(4000);
 
-//        String zawartosc = control.clipboardToString();
-//        System.out.println(zawartosc);
 
         rKey.copyAll();
         rKey.sleep(1000);
 
         String klucz = rKey.getRKeyFromContent();
-//        setrKey(control.getRKeyFromContent());
+
         System.out.println("dupa");
         System.out.println(klucz);
         setrKey(klucz);
@@ -329,322 +260,6 @@ class Operations{
     }
 
 
-    public void startTibia() {
-
-
-        Control control = new Control(urlO2Login, true);
-        control.sleep(4000);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(2000);
-        control.reverseTab(8);
-//        control.enterKey(KeyNames.Tab, 8);
-        control.sleep(1000);
-//        control.enterString(user.getNickName());
-        control.enterString("iga.pawlowski341");
-        control.enterKey(KeyNames.Tab, 1);
-        control.sleep(1000);
-//        control.enterString(user.getPass());
-        control.enterString("Pawlowski15MG8k");
-        control.enterKey(KeyNames.Tab, 1);
-        control.sleep(500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(6000);
-
-
-        if (!control.isO2OnScreen(blueButton)) {
-            System.out.println("A window appeared");
-            control.reverseTab(1);
-            control.sleep(1000);
-            control.enterKey(KeyNames.Enter, 1);
-            control.sleep(500);
-            control.closePage();
-            control.sleep(1000);
-        }
-
-        if (!control.isO2OnScreen(blueButton)) {
-            System.err.println("Mail not displayed");
-            throw new RuntimeException();
-        }
-
-
-        // o2 get Confrimation Link
-        //to mozna dodac jesli nie znajdzie bez wyszukiwania
-        control.sleep(1000);
-//        control.enterKey(KeyNames.Tab, 3);
-//        control.sleep(3000);
-//        control.enterString("");
-//        control.sleep(3000);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(3000);
-//        control.printScreen();
-        //metoda na znajdowanie maila
-
-        control.openMessage(emailsSeparator, 5);
-
-//        if (!control.searchMessage(blueColorNumber, greyColorNumber)) {
-//            System.out.println("Nie znalazlem wiadomosci");
-//            System.out.println("");
-//            control.sleep(2000);
-//
-//        }
-
-        //////////////////////////////
-
-
-        control.sleep(2000);
-        control.copyAll();
-        control.sleep(1000);
-        setActivationLink(control.getActivationLinkFromContent());
-
-        System.out.println(getActivationLink());
-
-        control.sleep(2000);
-        control.newPage();
-        control.sleep(1500);
-        control.copyToClipboard(getActivationLink());
-        control.sleep(1500);
-        control.pasteText();
-        control.sleep(1500);
-        control.enterKey(KeyNames.Enter, 1);
-        control.sleep(3000);
-
-
-        control.sleep(4000);
-
-        control.cleanClipboard();
-
-        control.getKeyTest();
-
-    }
-
-
-
-    public void startLogin() {
-
-
-        try {
-            Robot robot = new Robot();
-
-            robot.delay(500);
-
-            ArrayList<Integer> listaSeparatorow = new ArrayList<>();
-            Color sepColor = new Color(229, 229,229);
-
-
-            int x = 650;
-            for (int i = 500; i < 720; i++) {
-                robot.mouseMove(650, i);
-                Color tmpColor = robot.getPixelColor(x, i);
-                if (tmpColor.equals(sepColor)) {
-                    listaSeparatorow.add(i);
-                }
-
-
-            }
-
-            System.out.println(listaSeparatorow.toString());
-
-            robot.delay(500);
-
-
-            int wiadomosc = 1;
-
-            int center = 0;
-
-            switch (wiadomosc) {
-                case 1 :
-                    center = listaSeparatorow.get(1) + listaSeparatorow.get(0);
-                    break;
-                case 2 :
-                    center = listaSeparatorow.get(1) + listaSeparatorow.get(2);
-                    break;
-                case 3 :
-                    center = listaSeparatorow.get(3) + listaSeparatorow.get(2);
-                    break;
-            }
-
-            center /= 2;
-            robot.mouseMove(x, center);
-
-
-
-
-
-
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
-        }
-
-
-//
-////        String zawartosc = control.clipboardToString();
-////        System.out.println(zawartosc);
-//
-//        control.copyAll();
-//        control.sleep(2000);
-//
-//
-//        // zapis do pliku
-//
-//        File file = new File("plik.txt");
-//
-//        FileWriter writer = null;
-//        try {
-//            writer = new FileWriter(file);
-//            writer.write(control.clipboardToString());
-//            writer.close();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//        // zapis do pliku
-//
-//
-//
-//        control.sleep(1000);
-//
-//        String klucz = control.getRKeyFromContent();
-////        setrKey(control.getRKeyFromContent());
-//        System.out.println("dupa");
-//        System.out.println(klucz);
-//        setrKey(klucz);
-//        System.out.println("dupa");
-//        control.enterKey(KeyNames.Tab, 11);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(1000);
-//        control.enterKey(KeyNames.Tab, 11);
-//        control.sleep(500);
-//        control.enterRKey(getrKey());
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(1000);
-
-
-    }
-
-
-    public void searchMessage() {
-
-
-        Control control = new Control("", false);
-
-//        control.isO2OnScreen(blueButton);
-
-        Color[] test = {new Color(153, 186, 251)};
-
-
-
-        control.openMessage(test, -5);
-
-
-
-
-
-//        Color test = new Color(50, 116, 246);
-//
-//        int numer = test.getRGB();
-//
-//        try {
-//            Robot bot = new Robot();
-//
-//
-//            for (int i = 0; i < 1000; i++) {
-//                Color tmp = bot.getPixelColor(700, i);
-//                int col = tmp.getRGB();
-//                bot.mouseMove(700, i);
-//
-//                if (col == numer) {
-//                    System.out.println("Znalazlem");
-//                    bot.mouseMove(700, i);
-//                    break;
-//                }
-//            }
-//
-//
-//
-//
-//        } catch (AWTException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-
-
-
-
-//        control.sleep(5000);
-//        control.enterKey(KeyNames.Tab, 3);
-//        control.sleep(1000);
-//        control.enterString("tibia");
-//        control.sleep(1000);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(1000);
-//        control.printScreen();
-//        control.searchMessage(blueColorNumber, greyColorNumber);
-//        control.sleep(2000);
-//        control.copyAll();
-//        control.sleep(1000);
-//        setActivationLink(control.getActivationLinkFromContent());
-//
-//        control.sleep(1000);
-//        control.newPage();
-//        control.copyToClipboard(getActivationLink());
-//        control.pasteText();
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(2000);
-//        control.copyAll();
-//        control.sleep(500);
-//        setrKey(control.getRKeyFromContent());
-//        System.out.println(getrKey());
-//        control.enterKey(KeyNames.Tab, 11);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(1000);
-//        control.enterKey(KeyNames.Tab, 11);
-//        control.sleep(500);
-//        control.enterRKey(getrKey());
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Tab, 1);
-//        control.sleep(500);
-//        control.enterKey(KeyNames.Enter, 1);
-//        control.sleep(1000);
-
-
-    }
-
-
-
-
-    public void saveData() {
-
-        User user = new User();
-        System.out.println(user);
-        PrintWriter zapis = null;
-        try {
-            zapis = new PrintWriter("Login_Data.txt");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        zapis.println(getCharName());
-        zapis.println();
-        zapis.println(user.getNickName() + "@o2.pl");
-        zapis.println(user.getPass());
-        zapis.close();
-
-    }
-
 
 
     public void setrKey(String rKey) {
@@ -683,8 +298,7 @@ class Operations{
             // do poprawy, pierwszy email losuj albo pobieraj z pola
             // nastepny email zapisz jako nowo utworzony i wykorzystaj itd.
     public String randomBackupMail() {
-        String[] usernames = {"darodjak", "rharper419", "jlopez352", "amcdonald885", "esmith797",
-                "nphillips436", "jgonzalez152", "lramirez719", "jreed468", "kgomez367"};
+        String[] usernames = {"AnetaD", "TomaszC", "AnnaS34", "Damians"};
 
         Random rand = new Random();
         String email = usernames[rand.nextInt(usernames.length)];
