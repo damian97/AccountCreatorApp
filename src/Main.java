@@ -198,7 +198,7 @@ class Operations{
         setActivationLink(control.getActivationLinkFromContent());
 
 
-        Control rKey = new Control(urlO2, true);    // true do zmiany ?? test czy dziala
+        Control rKey = new Control(urlO2, false);    // true do zmiany ?? test czy dziala
         control.sleep(2000);
         control.newPage();
         control.sleep(1500);

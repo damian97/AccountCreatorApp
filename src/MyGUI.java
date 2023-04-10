@@ -28,7 +28,7 @@ public class MyGUI extends JPanel {
 
 
         JButton start = new JButton("Start");
-        start.setBounds(50, 250, 150, 100);
+        start.setBounds(50, 150, 150, 100);
         add(start);
 
         start.addActionListener(new AbstractAction() {
@@ -58,7 +58,7 @@ public class MyGUI extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(500,400);
+        return new Dimension(400,300);
     }
 
 }

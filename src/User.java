@@ -1,10 +1,8 @@
 import java.util.Random;
 
 public class User {
-
     private String fName, sName, nickName, pass, day, year;
     private int month, gender;
-
 
     public User() {
 

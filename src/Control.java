@@ -312,99 +312,11 @@ public class Control {
 
 
                 }
-//                robot.mouseMove(width, y);
-//                robot.delay(2);
-            }
-
-
-
-
-        } catch (IOException e) {
-            System.err.println("File doesn't exist");
-            throw new RuntimeException(e);
-        }
-
-
-        return false;
-    }
-
-
-    public boolean searchMessage(int colorNumber, int colorNumber2) {
-
-        BufferedImage screen;
-        try {
-            screen = ImageIO.read(new File("screenshot.png"));
-        } catch (IOException e) {
-            System.err.println("File doesn't exist");
-            throw new RuntimeException(e);
-        }
-
-        int width = screen.getWidth();
-        int height = screen.getHeight();
-
-        firstLoop:
-        for (int y = 0; y < height-1; y++) {
-            for (int x = 0; x < width-1; x++) {
-
-                int tmpColor = screen.getRGB(x, y);
-
-                if (colorNumber == tmpColor) {
-                    while (y < height-1) {
-                        y++;
-                        tmpColor = screen.getRGB(x, y);
-                        if (colorNumber2 == tmpColor) {
-                            mouseMovie(x, y + 5);
-                            sleep(500);
-                            mousePress(MouseButton.Left);
-                            return true;
-//                            break firstLoop;
-                        }
-                    }
-                }
 
             }
-        }
-
-        int halfWidth = width / 2;
-
-        for (int y = height-1; y > 0; y--) {
-            int tmpColor = screen.getRGB(halfWidth, y);
-            if (tmpColor == colorNumber2) {
-                mouseMovie(halfWidth, y + 5);
-                sleep(500);
-                mousePress(MouseButton.Left);
-                return true;
-            }
-        }
-
-        return false;
 
 
-    }
 
-    public boolean searchLinkActiavtion(Color[] colors) {
-
-        printScreen();
-
-        try {
-            BufferedImage screen = ImageIO.read(new File("screenshot.png"));
-            int width = screen.getWidth() / 2;
-            int height = screen.getHeight();
-
-            for (int y = 0; y < height-1; y++) {
-
-                int tmpColor = screen.getRGB(width, y);
-                for (int z = 0; z < colors.length; z++) {
-                    int pixelColor = colors[z].getRGB();
-                    if (tmpColor == pixelColor) {
-                        mouseMovie(width, y-2);
-                        return true;
-                    }
-
-
-                }
-
-            }
 
         } catch (IOException e) {
             System.err.println("File doesn't exist");
@@ -517,10 +429,6 @@ public class Control {
             try {
                 clipboardContents = (String) data.getTransferData(DataFlavor.stringFlavor);
 
-//                int rKeyStartIndex = clipboardContents.indexOf('-');
-//                System.out.println(rKeyStartIndex);
-//                rKey = keyContentMessage.substring(rKeyStartIndex-5, rKeyStartIndex+18);
-
                 String[] lines = clipboardContents.split("\n");
 
                 for (String line : lines) {
@@ -544,28 +452,6 @@ public class Control {
         return rKey;
     }
 
-
-
-
-
-    public void getKeyTest() {
-        System.out.println("Wywolalem metode getKeyTest");
-
-        copyAll();
-
-        robot.delay(2000);
-
-
-        try {
-            String data = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-            System.out.println("Zawartosc schowka: " + data);
-        } catch (UnsupportedFlavorException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
 
 
@@ -614,47 +500,5 @@ public class Control {
         return result;
     }
 
-
-
-
-
-//    public void searchMessage(Color color) {
-//        int x = 0;
-//        int y = 0;
-//
-//        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-//        Rectangle rectangle = new Rectangle(dimension);
-//
-//        BufferedImage screen = robot.createScreenCapture(rectangle);
-//        try {
-//            ImageIO.write(screen, "jpg", new File("screenshot.jpg"));
-//        } catch (IOException e) {
-//            System.err.println("Błąd zapisu obrazu");
-//            e.printStackTrace();
-//        }
-//
-//        int colorSzukany = -16740865;
-//        int colorSzary = -1710619;
-//        robot.delay(1500);
-//        while (y < screen.getHeight()-1) {
-//
-//            x++;
-//
-//            if (x >= screen.getWidth()-1) {
-//                x = 0;
-//                y++;
-//            }
-//            int pixel = screen.getRGB(x, y);
-//
-//            if (pixel == colorSzukany) {
-//                robot.mouseMove(x, y);
-//                break;
-//
-//            }
-//
-//        }
-//
-//
-//    }
 
 }
