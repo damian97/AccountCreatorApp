@@ -38,6 +38,8 @@ Finally, it will save the login details in a text file in MyDocuments.
    
  +  ❌   Add support to firefox and opera
 
+ +  ❌   Clearing the Downloads folder
+
 
 ## 
 👷👷👷👷	  ...  Under construction  ...    👷👷👷👷
