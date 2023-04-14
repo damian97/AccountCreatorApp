@@ -36,6 +36,7 @@ Finally, it will save the login details in a text file in MyDocuments.
  
  +  ❌   Instruction in Readme
    
+ +  ❌   Add support to firefox and opera
 
 
 ## 
