@@ -28,11 +28,13 @@ Finally, it will save the login details in a text file in MyDocuments.
  
  +  ✔️   Management of Tibia.com
  
- +  ✔️   Management of Interia.com
+ +  ✔️   Management of o2.com
     
  +  ❌   GUI  
       
  +  ❌   Create multiple accounts at once
+ 
+ +  ❌   Instruction in Readme
    
 
 
