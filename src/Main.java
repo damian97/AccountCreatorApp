@@ -145,11 +145,9 @@ class Operations{
         control.reverseTab(8);
         control.sleep(1000);
         control.enterString(user.getNickName());
-//        control.enterString("iga.pawlowski341");
         control.enterKey(KeyNames.Tab, 1);
         control.sleep(1000);
         control.enterString(user.getPass());
-//        control.enterString("Pawlowski15MG8k");
         control.enterKey(KeyNames.Tab, 1);
         control.sleep(500);
         control.enterKey(KeyNames.Enter, 1);
